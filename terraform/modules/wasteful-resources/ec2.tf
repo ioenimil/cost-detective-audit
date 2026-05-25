@@ -1,0 +1,21 @@
+data "aws_ami" "amazon_linux_2023" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+}
+
+resource "aws_instance" "idle" {
+  ami           = data.aws_ami.amazon_linux_2023.id
+  instance_type = "m5.xlarge"
+  subnet_id     = module.vpc.public_subnets[0]
+
+  tags = {
+    Name        = "idle-oversized-instance"
+    Purpose     = "lab-waste-simulation"
+    Environment = var.environment
+  }
+}
