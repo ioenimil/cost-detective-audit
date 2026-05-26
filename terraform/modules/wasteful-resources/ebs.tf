@@ -1,6 +1,6 @@
 resource "aws_ebs_volume" "zombie" {
   count             = var.ebs_volume_count
-  availability_zone = slice(data.aws_availability_zones.available.names, 0, 2)[count.index]
+  availability_zone = var.azs[count.index % length(var.azs)]
   size              = var.ebs_volume_size
   type              = var.ebs_volume_type
 

@@ -5,6 +5,7 @@ module "networking" {
   vpc_name       = var.vpc_name
   vpc_cidr       = var.vpc_cidr
   public_subnets = var.public_subnets
+  azs            = var.azs
 }
 
 module "security" {
@@ -20,6 +21,7 @@ module "wasteful_infrastructure" {
   environment      = var.environment
   vpc_id           = module.networking.vpc_id
   public_subnets   = module.networking.public_subnets
+  azs              = var.azs
   alb_sg_id        = module.security.alb_sg_id
   instance_type    = var.instance_type
   ebs_volume_count = var.ebs_volume_count

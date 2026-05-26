@@ -14,6 +14,11 @@ variable "public_subnets" {
   type        = list(string)
 }
 
+variable "azs" {
+  description = "A list of availability zones names or ids in the region"
+  type        = list(string)
+}
+
 variable "alb_sg_id" {
   description = "The ID of the Security Group for the ALB"
   type        = string
