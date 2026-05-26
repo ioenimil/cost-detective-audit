@@ -1,8 +1,8 @@
 resource "aws_ebs_volume" "zombie" {
-  count             = 2
+  count             = var.ebs_volume_count
   availability_zone = slice(data.aws_availability_zones.available.names, 0, 2)[count.index]
-  size              = 50
-  type              = "gp3"
+  size              = var.ebs_volume_size
+  type              = var.ebs_volume_type
 
   tags = {
     Name        = "zombie-ebs-${count.index + 1}"

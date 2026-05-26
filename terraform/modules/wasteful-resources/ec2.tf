@@ -10,8 +10,8 @@ data "aws_ami" "amazon_linux_2023" {
 
 resource "aws_instance" "idle" {
   ami           = data.aws_ami.amazon_linux_2023.id
-  instance_type = "m5.xlarge"
-  subnet_id     = module.vpc.public_subnets[0]
+  instance_type = var.instance_type
+  subnet_id     = var.public_subnets[0]
 
   tags = {
     Name        = "idle-oversized-instance"
