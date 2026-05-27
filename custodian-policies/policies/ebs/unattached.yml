@@ -1,0 +1,23 @@
+policies:
+  - name: ebs-mark-unattached
+    resource: aws.ebs
+    filters:
+      - State: available
+      - type: value
+        key: "tag:Protection"
+        op: not-in
+        value_from:
+          url: file:custodian-policies/data/allowlist-tags.json
+          format: json
+    actions:
+      - type: mark-for-op
+        op: delete
+        days: 2
+
+  - name: ebs-delete-marked
+    resource: aws.ebs
+    filters:
+      - type: marked-for-op
+        op: delete
+    actions:
+      - type: delete

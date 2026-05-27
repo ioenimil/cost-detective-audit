@@ -1,0 +1,28 @@
+policies:
+  - name: ec2-mark-idle
+    resource: aws.ec2
+    filters:
+      - State.Name: running
+      - type: metrics
+        name: CPUUtilization
+        days: 14
+        value: 5
+        op: less-than
+      - type: value
+        key: "tag:Protection"
+        op: not-in
+        value_from:
+          url: file:custodian-policies/data/allowlist-tags.json
+          format: json
+    actions:
+      - type: mark-for-op
+        op: stop
+        days: 2
+
+  - name: ec2-stop-marked
+    resource: aws.ec2
+    filters:
+      - type: marked-for-op
+        op: stop
+    actions:
+      - type: stop

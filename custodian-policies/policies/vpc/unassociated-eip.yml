@@ -1,0 +1,23 @@
+policies:
+  - name: eip-mark-unassociated
+    resource: aws.elastic-ip
+    filters:
+      - AssociationId: absent
+      - type: value
+        key: "tag:Protection"
+        op: not-in
+        value_from:
+          url: file:custodian-policies/data/allowlist-tags.json
+          format: json
+    actions:
+      - type: mark-for-op
+        op: release
+        days: 2
+
+  - name: eip-release-marked
+    resource: aws.elastic-ip
+    filters:
+      - type: marked-for-op
+        op: release
+    actions:
+      - type: release
