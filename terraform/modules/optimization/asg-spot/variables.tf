@@ -35,19 +35,19 @@ variable "on_demand_percentage_above_base_capacity" {
 variable "min_size" {
   description = "Minimum ASG size"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "max_size" {
   description = "Maximum ASG size"
   type        = number
-  default     = 6
+  default     = 3
 }
 
 variable "desired_capacity" {
   description = "Desired ASG size at apply time"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "instance_overrides" {

@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# IAM — SSM access so instances are debuggable without SSH/keypair
+# IAM — SSM access so instances
 # ---------------------------------------------------------------------------
 data "aws_iam_policy_document" "ec2_assume" {
   statement {

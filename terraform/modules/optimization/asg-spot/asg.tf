@@ -72,7 +72,7 @@ resource "aws_autoscaling_group" "spot" {
   target_group_arns         = [aws_lb_target_group.app.arn]
   health_check_type         = "ELB"
   health_check_grace_period = 120
-  capacity_rebalance        = true # proactively replace Spot instances flagged for reclamation
+  capacity_rebalance        = true 
 
   mixed_instances_policy {
     instances_distribution {
@@ -114,13 +114,12 @@ resource "aws_autoscaling_group" "spot" {
   }
 
   lifecycle {
-    # desired_capacity is mutated by the scaling policy; don't let TF fight it
     ignore_changes = [desired_capacity]
   }
 }
 
 # ---------------------------------------------------------------------------
-# Target-tracking scaling policy — proves the "scaling with Spot" story.
+# Target-tracking scaling policy
 # ---------------------------------------------------------------------------
 resource "aws_autoscaling_policy" "cpu_target_tracking" {
   name                   = "${local.name_prefix}-cpu-target-tracking"
