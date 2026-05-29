@@ -2,9 +2,6 @@ policies:
   - name: alb-mark-idle
     resource: aws.app-elb
     filters:
-      # An idle ALB generally has 0 active requests for older periods.
-      # Or you can filter when it has 0 target groups. Cloud Custodian natively supports
-      # checking the number of target groups for the app-elb.
       - type: value
         key: TargetGroups
         value: empty
